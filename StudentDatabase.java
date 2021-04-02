@@ -6,9 +6,21 @@ public class StudentDatabase
 {
 
 	public static void main(String[] args) 
+	{	
+		StudentDatabase studentDatabase = new StudentDatabase();
+		
+		ArrayList<Student> students = new ArrayList<Student>();
+		
+		studentDatabase.enrollStudents(students);
+		
+		studentDatabase.displayStudentInfo(students);
+		
+	}
+	
+	//Function to allow the user to continue enrolling students until they would like to quit.
+	public void enrollStudents(ArrayList<Student> students)
 	{
 		Scanner input = new Scanner(System.in);
-		ArrayList<Student> Students = new ArrayList<Student>();
 		
 		boolean finishedEnrollingStudents = false;
 		boolean isNum = true;
@@ -49,10 +61,14 @@ public class StudentDatabase
 			
 			if(new_student != 0)
 			{
-				//Create new student object for each student added.
-				Students.add(new Student());
-				Students.get(Students.size() - 1).enroll_student();
-				Students.get(Students.size() - 1).pay_tuition();
+				/*
+				 * Create new student object for each student added.
+				 * Enroll each of those students in classes. 
+				 * Pay tuition at the end of enrolling in classes. 
+				 */
+				students.add(new Student());
+				students.get(students.size() - 1).enrollStudent();
+				students.get(students.size() - 1).payTuition();
 			}
 			else
 			{
@@ -61,15 +77,19 @@ public class StudentDatabase
 			
 		}
 		
-		//Prints student info for each student in database. 
-		for(int i = 0; i < Students.size(); i++)
-		{
-			System.out.println("");
-			Students.get(i).student_info();
-		}
-		
 		input.close();
 
+	}
+	
+	//Goes through the list of students and displays student info for each student in the system.
+	public void displayStudentInfo(ArrayList<Student> students)
+	{
+		//Prints student info for each student in database. 
+		for(int i = 0; i < students.size(); i++)
+		{
+			System.out.println("");
+			students.get(i).displayStudentInfo();
+		}
 	}
 
 }
