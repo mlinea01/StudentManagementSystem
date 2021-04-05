@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -76,6 +77,8 @@ public class StudentDatabase
 			}
 			
 		}
+		
+		Collections.sort(students, new SortObjects());
 		
 		input.close();
 
