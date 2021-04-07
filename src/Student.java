@@ -7,16 +7,15 @@ public class Student
 	private String firstName;
 	private String lastName;
 	private int currentSchoolYear;
-	private String studentId;
 	private int balance = 0;
-	private static int courseCost = 600;
-	private static int id = 1000;
+	private final int courseCost = 600;
 	private boolean isNum = true;
+	private String courses = "";
 	
 	ArrayList<String> studentCourses = new ArrayList<>();
 	ArrayList<String> professors = new ArrayList<>();
 	
-	//Assignments for each course.
+	//Available courses and assignments for each course.
 	String[] availableCourses = {"Object Oriented Programming", "Java", "Python", "Calculus", "History", "Writing"};
 	String[] OOPAssignments = {"Discussions: 3, Total Points: 50", "Quizzes: 3, Total Points: 100", "Milestones: 3, Total Points: 300", "Final Project: 1, Total Points: 500"};
 	String[] javaAssignments = {"Discussions: 3, Total Points 50", "Exercises: 5, Total Points: 100", "Tests: 2, Total Points 100", "Final Project: 1, Total Points: 300"};
@@ -24,7 +23,6 @@ public class Student
 	String[] calculusAssignments = {"Discussions: 2, Total Points: 25", "Practice Problems: 100, Total Points: 200", "Quizzes: 4: Total Points: 200", "Tests: 2, Total Points: 200", "Final Exam: 1, Total Points: 300"};
 	String[] historyAssignments = {"Discussion: 6, Total Points 100", "Papers: 2, Total Points 200", "Quizzes: 3, Total Points 150", "Final Research Paper: 1, Total Points: 300"};
 	String[] writingAssignments = {"Discussions: 4, total points 100", "Writing Fundamental Exercises: 3, Total Points 75", "Quizzes: 3, Total Points: 100", "Research Paper: 1, Total Points: 400"};
-	
 	
 	Scanner input = new Scanner(System.in);
 	
@@ -43,7 +41,7 @@ public class Student
 				+ "4. Senior \n"
 				+ "Please enter the year you are going into: ");
 		
-		//Grabs user input for the current school year and makes sure the user is typing a number that is between 1 and 4.
+		//Gets user input for the current school year and makes sure the user is typing a number that is between 1 and 4. 
 		try
 		{
 			this.currentSchoolYear = input.nextInt();
@@ -72,8 +70,24 @@ public class Student
 				input.nextLine();
 			}
 		}
-		
-		createStudentId();
+	}
+	
+	//Getter used to get the available balance for each student
+	public int getBalance()
+	{
+		return this.balance;
+	}
+	
+	//Getter used to get the courses each student is enrolled in. 
+	public String getCourses()
+	{
+		return this.courses;
+	}
+	
+	//Getter used to get the year each student is enrolled in.  
+	public int getYearAttending()
+	{
+		return this.currentSchoolYear;
 	}
 	
 	//Getter used to get the first name of the student
@@ -86,13 +100,6 @@ public class Student
 	public String getLastName()
 	{
 		return this.lastName;
-	}
-	
-	//Creates student ID for each student object created. Increments ID by 1 each time a student object is created to make sure each student ID is unique. 
-	private void createStudentId()
-	{
-		id++;
-		this.studentId = currentSchoolYear + "" + id;
 	}
 	
 	//Prompts user to enter courses the student would like to enroll in and adds them to a list of courses for that student. 
@@ -139,6 +146,7 @@ public class Student
 						{
 							studentCourses.add(nameOfCourse);
 							professors.add(courseName.getProfessorName());
+							courses += "\n" + " " + (studentCourses.size()) + ". Course: " + nameOfCourse + "\n" + " Professor: " + courseName.getProfessorName();
 							balance += courseCost;
 							
 							System.out.println("Would you like to view the assignments for this course? (1. Yes, 2. No)");
@@ -290,23 +298,5 @@ public class Student
 				}
 				break;
 		}
-	}
-	
-	
-	//Function used to display student info for each student object created.  
-	public void displayStudentInfo()
-	{
-		String courses = "";
-		
-		for(int i = 0; i < studentCourses.size(); i++)
-		{
-			courses += "\n" + " " + (i + 1) + ". Course: " + studentCourses.get(i) + "\n" + "    Professor: " + professors.get(i);
-		}
-		
-		System.out.println("Student Name: " + firstName + " " + lastName +
-				"\nStudent ID: " + studentId +  
-				"\nYear Attending: " + currentSchoolYear +
-				"\nCourses: " + courses + 
-				"\nBalance: $" + balance);
 	}
 }
